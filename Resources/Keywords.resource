@@ -1,6 +1,6 @@
 *** Settings ***
 Library    DatabaseLibrary
-Variables    ..\\PageObjects\\locators.py
+Variables    ..\\DBObjects\\locators.py
 
 
 *** Keywords ***
