@@ -19,12 +19,18 @@ Check Procedure Name
 
     Execute Sql String    Use ${db_name};
     ${output} =    Query    show procedure status where name='${pro_name}';
-    Log To Console    ${output}
     Should Be Equal As Strings    ${output}[0][1]    GetCustomerShipping
 
 Check procedure select all customers
     ${procedure_output} =    Query    call SelectAllCustomers();
-    Log To Console    ${procedure_output}
     ${sql_command_output}=    Query    select * from customers;
+    ${result}=    Compare Tuples    ${procedure_output}    ${sql_command_output}
+    Should Be True    ${result}
+    
+Check procedure select customers from city
+    [Arguments]    ${city}
+    ${procedure_output} =    Query    call SelectAllCustomersByCity('${city}');
+    Log To Console    ${procedure_output}
+    ${sql_command_output}=    Query    select * from customers where city='${city}';
     ${result}=    Compare Tuples    ${procedure_output}    ${sql_command_output}
     Should Be True    ${result}
