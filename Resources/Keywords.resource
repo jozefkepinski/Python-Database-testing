@@ -30,7 +30,15 @@ Check procedure select all customers
 Check procedure select customers from city
     [Arguments]    ${city}
     ${procedure_output} =    Query    call SelectAllCustomersByCity('${city}');
-    Log To Console    ${procedure_output}
+    Log    ${procedure_output}
     ${sql_command_output}=    Query    select * from customers where city='${city}';
+    ${result}=    Compare Tuples    ${procedure_output}    ${sql_command_output}
+    Should Be True    ${result}
+    
+Check Procedure Select Customers From City and Postal Code
+    [Arguments]    ${city}    ${postal_code}
+    ${procedure_output} =    Query    call SelectCustomersByCityAndPin('${city}', '${postal_code}');
+    Log    ${procedure_output}
+    ${sql_command_output}=    Query    select * from customers where city='${city}' and postalCode='${postal_code}';
     ${result}=    Compare Tuples    ${procedure_output}    ${sql_command_output}
     Should Be True    ${result}
