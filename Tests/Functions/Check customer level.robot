@@ -10,3 +10,6 @@ Check if function exist
 
 Check customer level
     Check customer level
+    
+Check customer level with stored procedure
+    Check customer level with stored procedure    131

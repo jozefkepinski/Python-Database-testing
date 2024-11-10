@@ -25,3 +25,10 @@ Check customer level
     ${function_output}=    Query    select customerName, CustomerLevel(creditLimit) from customers;
     ${query_output}=    Query    select customerName, case when creditLimit>50000 then 'Platinum' when creditLimit >= 10000 AND creditLimit <= 50000 then 'Gold' when creditLimit < 10000 then 'Silver' end as customerlevel from customers;
     Should Be Equal    ${function_output}    ${query_output}
+    
+Check customer level with stored procedure
+    [Arguments]    ${cust_no}
+    @{params}=    Create List    ${cust_no}    0
+
+    ${params_values}    ${order_output}=    Call Stored Procedure    GetCustomerLevel    ${params}
+    Should Be Equal As Strings    ${params_values}[1]    Platinum
