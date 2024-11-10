@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ../Resources/Keywords.resource
+Resource    ../../Resources/Procedures.resource
 Suite Setup    Connect To MySQL Database
 Suite Teardown    Disconnect From Database
 
